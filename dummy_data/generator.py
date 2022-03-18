@@ -1,8 +1,8 @@
-from time import sleep
 import pandas as pd
 import numpy as np
 
 from random import uniform, randrange
+from time import sleep
 
 BLUE = '\033[1;34m'
 RED = '\033[0;31m'
