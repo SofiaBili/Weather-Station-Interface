@@ -1,4 +1,3 @@
-from re import I
 from time import sleep
 import pandas as pd
 import numpy as np
