@@ -1,0 +1,21 @@
+sensor,start,end,step
+H2,200,10000,30
+LGP,200,10000,30
+Hexane,0.05,10,0.5
+Benzine,0.05,10,0.5
+Alcohol,0.05,10,0.5
+CH4,200,10000,30
+CO,200,10000,30
+Smoke,200,10000,10
+CO2,10,1000,25
+Tolueno,10,1000,25
+NH4,10,1000,30
+Acetone,10,1000,40
+Tempature,-40,85,30
+Humidity,0,100,5
+Pressure,300,1100,100
+Dust Sensor,0,500,100
+Rain Sensor,0,1,0
+Solar Charge,0,1,0
+Solar Done,0,1,0
+Solar Warning,0,1,0
