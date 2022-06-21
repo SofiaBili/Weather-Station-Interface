@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 	<head>	
 		<title>Weather Station</title>  
 		<meta charset="utf-8">
@@ -21,18 +22,18 @@
 			<div class="content-area">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-sm-6" style="background-color:lavender;"><h2>Weather Sensors</h2>
+						<div class="col-sm-6" style="background-color:white;"><h2>Weather Sensors</h2>
 							<div class="row">
 								<div class="col-sm-6" style="background-color:lightcyan;">humidity</div>
 								<div class="col-sm-6" style="background-color:lightgray;">temperature</div>
 								<div class="col-sm-6" style="background-color:lightgray;">barometric pressure</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-12" style="background-color:lightcyan;">temperature, humidity and  barometric pressure</div>
+								<div class="col-sm-12" ><canvas id="myChart"></canvas></div>
 							</div>
 							<div class="row">
 								<div class="col-sm-6" style="background-color:lavenderblush;">dust</div>
-								<div class="col-sm-6" style="background-color:lightgray;">rain</div>
+								<div class="col-sm-6" style="background-color:lightgray;"><canvas id="myRainChart"></div>
 							</div>
 						</div>
 						<div class="col-sm-6" style="background-color:lavenderblush;"><h2>Air Quality Sensors</h2>
@@ -53,6 +54,61 @@
 				</div>
 			</div>
 		</div>
+		
+
+<script>
+	var xRainValues = [1,2,7,8,9,10];
+	var yRainValues = [7,8,8,9,9,9];
+	
+	var xAllValues = [50,60,70,80,90,100,110,120,130,140,150];
+	var yAllValues = [7,8,8,9,9,9,10,11,14,14,15];
+	new Chart("myChart", {
+		type: "line",
+		data: {
+			labels: xAllValues,
+			datasets: [{
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "rgba(0,0,255,1.0)",
+				borderColor: "rgba(0,0,255,0.1)",
+				data: yAllValues
+			}]
+		},
+		options: {
+			legend: {display: false},
+			title: {
+				display: true,
+				text: "Temperature, humidity and  barometric pressure"
+			},
+			scales: {
+				yAxes: [{ticks: {min: 6, max:16}}],
+			}
+		}
+	});
+	new Chart("myRainChart", {
+		type: "line",
+		data: {
+			labels: xRainValues,
+			datasets: [{
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "rgba(0,0,255,1.0)",
+				borderColor: "rgba(0,0,255,0.1)",
+				data: yRainValues
+			}]
+		},
+		options: {
+			legend: {display: false},
+			title: {
+				display: true,
+				text: "Rain"
+			},
+				scales: {
+				yAxes: [{ticks: {min: 6, max:16}}],
+			}
+		}
+	});
+</script>
 	</body>
 </html>
 
