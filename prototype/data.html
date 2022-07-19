@@ -1,114 +1,119 @@
 <!DOCTYPE html>
 <html>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-	<head>	
-		<title>Weather Station</title>  
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-		<!-- Bootstrap Font Icon CSS -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
-		<link rel="stylesheet" href="sidenav.css">
-	</head>
-	<body>
+<head>
+	<title>Weather Station</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-		<div class="sidenav">
-			<a href="map.html"><i class="bi bi-map-fill"></i></a>
-			<a href="data.html" class="current"><i class="bi bi-cloud-fill"></i></a>
-		</div>
-		  
-		<div class="main">
-			<div class="content-area">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-sm-6" style="background-color:white;"><h2>Weather Sensors</h2>
-							<div class="row">
-								<div class="col-sm-6" style="background-color:lightcyan;">humidity</div>
-								<div class="col-sm-6" style="background-color:lightgray;">temperature</div>
-								<div class="col-sm-6" style="background-color:lightgray;">barometric pressure</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12" ><canvas id="myChart"></canvas></div>
-							</div>
-							<div class="row">
-								<div class="col-sm-6" style="background-color:lavenderblush;">dust</div>
-								<div class="col-sm-6" style="background-color:lightgray;"><canvas id="myRainChart"></div>
-							</div>
+	<!-- Bootstrap Font Icon CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+	<link rel="stylesheet" href="sidenav.css">
+
+</head>
+
+<body>
+	<script>
+		window.onload = function () {
+			var xAllValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+			var yAllValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+			var xRainValues = [1, 2, 7, 8, 9, 10];
+			var yRainValues = [7, 8, 8, 9, 9, 9];
+
+			var chartName = document.getElementById('thb');//Temperature, humidity and  barometric pressure
+			cFunction(chartName, xAllValues, yAllValues, "Temperature, humidity and  barometric pressure");
+
+			var chartName = document.getElementById('dust');//Dust
+			cFunction(chartName, xRainValues, yRainValues, "Dust");
+
+			var chartName = document.getElementById('rain');//Rain
+			cFunction(chartName, xRainValues, yRainValues, "Rain");
+
+			var chartName = document.getElementById('mq2');//MQ2
+			cFunction(chartName, xRainValues, yRainValues, "MQ2");
+
+			var chartName = document.getElementById('mq3');//MQ3
+			cFunction(chartName, xRainValues, yRainValues, "MQ3");
+
+			var chartName = document.getElementById('mq4');//MQ4
+			cFunction(chartName, xRainValues, yRainValues, "MQ4");
+
+			var chartName = document.getElementById('mq135');//MQ135
+			cFunction(chartName, xRainValues, yRainValues, "MQ135");
+
+			var chartName = document.getElementById('aq');//Air Quality
+			cFunction(chartName, xRainValues, yRainValues, "Air Quality");
+
+			function cFunction(chartName, xValues, yValues, chartText) {
+				var chart = new Chart(chartName, {
+					type: "line",
+					data: {
+						labels: xValues,
+						datasets: [{
+							fill: false,
+							lineTension: 0,
+							backgroundColor: "rgba(0,0,255,1.0)",
+							borderColor: "rgba(0,0,255,0.1)",
+							data: yValues
+						}]
+					},
+					options: {
+						legend: { display: false },
+						title: {
+							display: true,
+							text: chartText
+						}
+					}
+				});
+				chart.render();
+			}
+		}
+	</script>
+	<div class="sidenav">
+		<a href="map.html"><i class="bi bi-map-fill"></i></a>
+		<a href="data.html" class="current"><i class="bi bi-cloud-fill"></i></a>
+	</div>
+
+	<div class="main">
+		<div class="content-area">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-6" style="background-color:white;">
+						<h2>Weather Sensors</h2>
+						<div class="row">
+							<div class="col-sm-6" style="background-color:lightcyan;">humidity</div>
+							<div class="col-sm-6" style="background-color:lightgray;">temperature</div>
+							<div class="col-sm-6" style="background-color:lightgray;">barometric pressure</div>
 						</div>
-						<div class="col-sm-6" style="background-color:lavenderblush;"><h2>Air Quality Sensors</h2>
-							<div class="row">
-								<div class="col-sm-6" style="background-color:lavender;">mq2</div>
-								<div class="col-sm-6" style="background-color:lightcyan;">mq3</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-6" style="background-color:lightcyan;">mq4</div>
-								<div class="col-sm-6" style="background-color:lightgray;">mq135</div>
-							</div>
-							
-							<div class="row">
-								<div class="col-sm-12" style="background-color:rgb(255, 224, 248);">air quality</div>
-							</div>
+						<div class="row">
+							<div class="col-sm-12"><canvas id="thb"></canvas></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6"><canvas id="dust"></canvas></div>
+							<div class="col-sm-6"><canvas id="rain"></canvas></div>
+						</div>
+					</div>
+					<div class="col-sm-6" style="background-color:white;">
+						<h2>Air Quality Sensors</h2>
+						<div class="row">
+							<div class="col-sm-6"><canvas id="mq2"></canvas></div>
+							<div class="col-sm-6"><canvas id="mq3"></canvas></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6"><canvas id="mq4"></canvas></div>
+							<div class="col-sm-6"><canvas id="mq135"></canvas></div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12"><canvas id="aq"></canvas></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+	</div>
+</body>
 
-<script>
-	var xRainValues = [1,2,7,8,9,10];
-	var yRainValues = [7,8,8,9,9,9];
-	
-	var xAllValues = [50,60,70,80,90,100,110,120,130,140,150];
-	var yAllValues = [7,8,8,9,9,9,10,11,14,14,15];
-	new Chart("myChart", {
-		type: "line",
-		data: {
-			labels: xAllValues,
-			datasets: [{
-				fill: false,
-				lineTension: 0,
-				backgroundColor: "rgba(0,0,255,1.0)",
-				borderColor: "rgba(0,0,255,0.1)",
-				data: yAllValues
-			}]
-		},
-		options: {
-			legend: {display: false},
-			title: {
-				display: true,
-				text: "Temperature, humidity and  barometric pressure"
-			},
-			scales: {
-				yAxes: [{ticks: {min: 6, max:16}}],
-			}
-		}
-	});
-	new Chart("myRainChart", {
-		type: "line",
-		data: {
-			labels: xRainValues,
-			datasets: [{
-				fill: false,
-				lineTension: 0,
-				backgroundColor: "rgba(0,0,255,1.0)",
-				borderColor: "rgba(0,0,255,0.1)",
-				data: yRainValues
-			}]
-		},
-		options: {
-			legend: {display: false},
-			title: {
-				display: true,
-				text: "Rain"
-			},
-				scales: {
-				yAxes: [{ticks: {min: 6, max:16}}],
-			}
-		}
-	});
-</script>
-	</body>
 </html>
-
