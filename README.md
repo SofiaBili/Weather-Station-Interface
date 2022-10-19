@@ -6,7 +6,7 @@ Specifically the information that will be displayed:
 
 Information on whether there is smoke, detection of gas leakage, domestic and industrial, detection of LPG, isobutane, propane, methane, alcohol, hydrogen
 
-# Sensors:
+<h3> Sensors:</h3>
 
 •	MQ-2 
 
@@ -14,7 +14,7 @@ Information on whether there is smoke, detection of gas leakage, domestic and in
 
 Information on carbon monoxide levels 
 
-# Sensors:
+<h3> Sensors:</h3>
 
 •	MQ-7
 
@@ -27,18 +27,19 @@ Sensors:
 Information on Temperature-Humidity
 
 
-# Sensors:
+<h3> Sensors:</h3>
 
 •	DHT22
 
 Ιnformation about the rain
 
-# Sensors:
+<h3> Sensors:</h3>
 
 •	Rain Sensor 
 
 Information about the dust
-# Sensors:
+
+<h3> Sensors:</h3>
 
 •	Dust Sensor
 
