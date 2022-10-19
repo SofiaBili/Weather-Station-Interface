@@ -9,6 +9,7 @@ Information on whether there is smoke, detection of gas leakage, domestic and in
 #Sensors:
 
 •	MQ-2 
+
 •	MQ-5 
 
 Information on carbon monoxide levels 
