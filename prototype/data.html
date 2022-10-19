@@ -32,10 +32,10 @@
 			var chartName = document.getElementById('temp').getContext('2d');//Temperature
 			gFunction(chartName, curValue, curMinValue, curLim, "Temperature");
 
-			var chartName = document.getElementById('hum').getContext('2d');;//Humidity
+			var chartName = document.getElementById('hum').getContext('2d');//Humidity
 			gFunction(chartName, curValue, curMinValue, curLim, "Humidity");
 			
-			var chartName = document.getElementById('bar').getContext('2d');;//Barometric pressure
+			var chartName = document.getElementById('bar').getContext('2d');//Barometric pressure
 			gFunction(chartName, curValue, curMinValue, curLim, "Barometric pressure");
 			
 			//Line Functions
@@ -107,7 +107,7 @@
 						valueLabel: {
 						  display: true,
 						  formatter: (value) => {
-							return '$' + Math.round(value);
+							return Math.round(value);
 						  },
 						  color: 'rgba(255, 255, 255, 1)',
 						  backgroundColor: 'rgba(0, 0, 0, 1)',
@@ -139,9 +139,9 @@
 					<div class="col-sm-6" style="background-color:white;">
 						<h2>Weather Sensors</h2>
 						<div class="row">
-							<div class="col-sm-6" style="background-color:lightcyan;"><canvas id="temp"></canvas></div>
-							<div class="col-sm-6" style="background-color:lightgray;">temperature</div>
-							<div class="col-sm-6" style="background-color:lightgray;">barometric pressure</div>
+							<div class="col-sm-6"><canvas id="temp"></canvas></div>
+							<div class="col-sm-6"><canvas id="hum"></div>
+							<div class="col-sm-6"><canvas id="bar"></div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12"><canvas id="thb"></canvas></div>
