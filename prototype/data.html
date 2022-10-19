@@ -26,6 +26,9 @@
 			var y1Values = [7, 8, 8, 9, 9, 9];
 			var y2Values = [7, 4, 8, 2, 9, 7];
 			var y3Values = [1, 8, 6, 12, 9, 9];
+			
+			var colors = [ '#2685CB', '#4AD95A', '#FEC81B', '#FD8D14', '#CE00E6', '#4B4AD3'];
+			
 			//Gauge Variables
 			var curValue = 2;
 			var curMinValue = 0;
@@ -41,8 +44,24 @@
 			var chartName = document.getElementById('bar').getContext('2d');//Barometric pressure
 			gFunction(chartName, curValue, curMinValue, curLim, "Barometric pressure");
 			
+			//Creation of Dynamic Array
+			var datasetdata = [];
+			var dataarray = [y1Values,y2Values,y3Values];
+			for (var i=0; i<dataarray.length; i++) {
+				datasetdata[i] = {
+					label:"Test " + i,
+					data: dataarray[i],
+					fill: false,
+					backgroundColor: colors[i],
+					borderColor: colors[i],
+				}
+			}
+
 			var chartName = document.getElementById('bme');//BME280
-			mulLineFunction(chartName,xRainValues,y1Values,y2Values,y3Values,"Temperature,Humidity and Barometric pressure");
+			DynamicLineFunction(chartName,xRainValues,datasetdata,"Temperature,Humidity and Barometric pressure");
+			
+			//var chartName = document.getElementById('bme');//BME280
+			//mulLineFunction(chartName,xRainValues,y1Values,y2Values,y3Values,"Temperature,Humidity and Barometric pressure");
 			
 			//Line Functions
 			var chartName = document.getElementById('dust');//Dust
@@ -129,9 +148,28 @@
 				});
 				chart.render();
 			}
+			
+			function DynamicLineFunction(chartName,xValues,datasetdata,chartText) {
+				var chart = new Chart(chartName, {
+					type: "line",
+					data: {
+						labels: xValues,
+						datasets: datasetdata
+					},
+					options: {
+						legend: {
+							position: 'top',
+						  },
+						title: {
+							display: true,
+							text: chartText
+						}
+					}
+				});
+				chart.render();
+			}			
 		
 			function gFunction(chartName, curValue, curMinValue, curLim, chartText) {
-
 				var chart = new Chart(chartName, {
 					type: "gauge",
 					data: {
@@ -144,8 +182,8 @@
 					},
 					options: {
 						needle: {
-						  radiusPercentage: 2,
-						  widthPercentage: 3.2,
+						  radiusPercentage: 12,
+						  widthPercentage: 3.0,
 						  lengthPercentage: 80,
 						  color: 'rgba(0, 0, 0, 1)'
 						},
