@@ -23,6 +23,9 @@
 			var xRainValues = [1, 2, 7, 8, 9, 10];
 			var yRainValues = [7, 8, 8, 9, 9, 9];
 			
+			var y1Values = [7, 8, 8, 9, 9, 9];
+			var y2Values = [7, 4, 8, 2, 9, 7];
+			var y3Values = [1, 8, 6, 12, 9, 9];
 			//Gauge Variables
 			var curValue = 2;
 			var curMinValue = 0;
@@ -37,6 +40,9 @@
 			
 			var chartName = document.getElementById('bar').getContext('2d');//Barometric pressure
 			gFunction(chartName, curValue, curMinValue, curLim, "Barometric pressure");
+			
+			var chartName = document.getElementById('bme');//BME280
+			mulLineFunction(chartName,xRainValues,y1Values,y2Values,y3Values,"Temperature,Humidity and Barometric pressure");
 			
 			//Line Functions
 			var chartName = document.getElementById('dust');//Dust
@@ -83,9 +89,48 @@
 				});
 				chart.render();
 			}
+			
+			function mulLineFunction(chartName,xValues,y1Values,y2Values,y3Values,chartText) {
+				var chart = new Chart(chartName, {
+					type: "line",
+					data: {
+						labels: xValues,
+						datasets: [
+							{
+							  label: 'Temperature',
+							  data:y1Values ,
+							  fill: false,
+							  borderColor: "rgba(0,0,255,0.1)",
+							  backgroundColor: "rgba(0,0,255,1.0)",
+							},
+							{
+							  label: 'Humidity',
+							  data:y2Values,
+							  fill: false,
+							  borderColor: "rgba(0,255,0,0.1)",
+							  backgroundColor: "rgba(0,255,0,1.0)",
+							},
+							{
+							  label: 'Barometric',
+							  data:y3Values ,
+							  fill: false,
+							  borderColor: "rgba(255,0,0,0.1)",
+							  backgroundColor: "rgba(255,0,0,1.0)",
+							}
+						  ]
+					},
+					options: {
+						legend: { display: false },
+						title: {
+							display: true,
+							text: chartText
+						}
+					}
+				});
+				chart.render();
+			}
 		
-		
-		function gFunction(chartName, curValue, curMinValue, curLim, chartText) {
+			function gFunction(chartName, curValue, curMinValue, curLim, chartText) {
 
 				var chart = new Chart(chartName, {
 					type: "gauge",
@@ -144,7 +189,7 @@
 							<div class="col-sm-6"><canvas id="bar"></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12"><canvas id="thb"></canvas></div>
+							<div class="col-sm-12"><canvas id="bme"></canvas></div>
 						</div>
 						<div class="row">
 							<div class="col-sm-6"><canvas id="dust"></canvas></div>
