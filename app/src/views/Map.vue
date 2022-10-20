@@ -34,23 +34,23 @@
 
 <script>
 export default {
-  setup () {
+  setup() {
     return {
       center: {
         lat: 40.7128,
-        lng: -74.0060
+        lng: -74.006,
       },
       markers: [
         {
           position: {
             lat: 40.7128,
-            lng: -74.0060
+            lng: -74.006,
           },
-          title: 'New York',
-          content: 'New York City'
-        }
-      ]
-    }
-  }
-}
+          title: "New York",
+          content: "New York City",
+        },
+      ],
+    };
+  },
+};
 </script>

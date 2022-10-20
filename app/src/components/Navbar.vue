@@ -25,7 +25,7 @@
     &:hover {
       background: linear-gradient(90deg, #eeeeee 50%, #0094ce 50%);
       background-size: 170%;
-      transition: .3s ease-out;
+      transition: 0.3s ease-out;
     }
   }
 }
