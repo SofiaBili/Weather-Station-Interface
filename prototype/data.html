@@ -26,6 +26,7 @@
 			var y1Values = [7, 8, 8, 9, 9, 9];
 			var y2Values = [7, 4, 8, 2, 9, 7];
 			var y3Values = [1, 8, 6, 12, 9, 9];
+			var y4Values = [6, 8, 3, 1, 3, 7];
 			
 			var colors = [ '#2685CB', '#4AD95A', '#FEC81B', '#FD8D14', '#CE00E6', '#4B4AD3'];
 			
@@ -45,20 +46,17 @@
 			gFunction(chartName, curValue, curMinValue, curLim, "Barometric pressure");
 			
 			//Creation of Dynamic Array
-			var datasetdata = [];
+			var datasetdata0 = [];
+			var datasetdata1 = [];
+			var datasetdata2 = [];
+			var datasetdata3 = [];
+			var datasetdata4 = [];
 			var dataarray = [y1Values,y2Values,y3Values];
-			for (var i=0; i<dataarray.length; i++) {
-				datasetdata[i] = {
-					label:"Test " + i,
-					data: dataarray[i],
-					fill: false,
-					backgroundColor: colors[i],
-					borderColor: colors[i],
-				}
-			}
+			var dataarray2 = [y1Values,y2Values,y3Values, y4Values];
+			
 
 			var chartName = document.getElementById('bme');//BME280
-			DynamicLineFunction(chartName,xRainValues,datasetdata,"Temperature,Humidity and Barometric pressure");
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray,datasetdata0),"Temperature,Humidity and Barometric pressure");
 			
 			//var chartName = document.getElementById('bme');//BME280
 			//mulLineFunction(chartName,xRainValues,y1Values,y2Values,y3Values,"Temperature,Humidity and Barometric pressure");
@@ -71,20 +69,32 @@
 			cFunction(chartName, xRainValues, yRainValues, "Rain");
 
 			var chartName = document.getElementById('mq2');//MQ2
-			cFunction(chartName, xRainValues, yRainValues, "MQ2");
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray,datasetdata1),"MQ2");
 
 			var chartName = document.getElementById('mq3');//MQ3
-			cFunction(chartName, xRainValues, yRainValues, "MQ3");
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray,datasetdata2),"MQ3");
 
 			var chartName = document.getElementById('mq4');//MQ4
-			cFunction(chartName, xRainValues, yRainValues, "MQ4");
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray,datasetdata3),"MQ4");
 
 			var chartName = document.getElementById('mq135');//MQ135
-			cFunction(chartName, xRainValues, yRainValues, "MQ135");
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray2,datasetdata4),"MQ135");
 
 			var chartName = document.getElementById('aq');//Air Quality
 			cFunction(chartName, xRainValues, yRainValues, "Air Quality");
-
+			
+			function fillDataset(dataarray, datasetdata){
+				for (var i=0; i<dataarray.length; i++) {
+					datasetdata[i] = {
+						label:"Test " + i,
+						data: dataarray[i],
+						fill: false,
+						backgroundColor: colors[i],
+						borderColor: colors[i],
+					}
+				}
+				return datasetdata;
+			}
 			function cFunction(chartName, xValues, yValues, chartText) {
 				var chart = new Chart(chartName, {
 					type: "line",
@@ -109,7 +119,7 @@
 				chart.render();
 			}
 			
-			function mulLineFunction(chartName,xValues,y1Values,y2Values,y3Values,chartText) {
+			/*function mulLineFunction(chartName,xValues,y1Values,y2Values,y3Values,chartText) {
 				var chart = new Chart(chartName, {
 					type: "line",
 					data: {
@@ -147,7 +157,7 @@
 					}
 				});
 				chart.render();
-			}
+			}*/
 			
 			function DynamicLineFunction(chartName,xValues,datasetdata,chartText) {
 				var chart = new Chart(chartName, {
@@ -230,13 +240,32 @@
 							<div class="col-sm-12"><canvas id="bme"></canvas></div>
 						</div>
 						<div class="row">
+							<div class="col-sm-12"><canvas id="dust"></canvas></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12"><canvas id="rain"></canvas></div>
+						</div>
+						<!--<div class="row">
 							<div class="col-sm-6"><canvas id="dust"></canvas></div>
 							<div class="col-sm-6"><canvas id="rain"></canvas></div>
-						</div>
+						</div>-->
 					</div>
 					<div class="col-sm-6" style="background-color:white;">
 						<h2>Air Quality Sensors</h2>
 						<div class="row">
+							<div class="col-sm-12"><canvas id="mq2"></canvas></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12"><canvas id="mq3"></canvas></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12"><canvas id="mq4"></canvas></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12"><canvas id="mq135"></canvas></div>
+						</div>
+						<!--
+							<div class="row">
 							<div class="col-sm-6"><canvas id="mq2"></canvas></div>
 							<div class="col-sm-6"><canvas id="mq3"></canvas></div>
 						</div>
@@ -244,7 +273,7 @@
 							<div class="col-sm-6"><canvas id="mq4"></canvas></div>
 							<div class="col-sm-6"><canvas id="mq135"></canvas></div>
 						</div>
-
+					-->
 						<div class="row">
 							<div class="col-sm-12"><canvas id="aq"></canvas></div>
 						</div>

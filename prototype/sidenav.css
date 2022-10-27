@@ -2,14 +2,14 @@ html, body{
 	height: 100%;
 }
 .current{
-	background:linear-gradient(90deg, #eeeeee 85%, #0094ce 15%);
+	background:linear-gradient(90deg, #FFFFFF 85%, #0094ce 15%);
 }
 .sidenav{
 	height: 100%;
 	width: 80px;
 	position: fixed;
 	top: 0;
-	background-color: rgb(255, 255, 255);
+	background-color: #094169;
 	padding-top: 3px;
 }
 
@@ -23,7 +23,7 @@ html, body{
 }
 .sidenav a:hover {
 	/*when user hovers, the background of link changes with transition(from left to right)*/
-	background: linear-gradient(90deg, #eeeeee 50%, #0094ce 50%);
+	background: linear-gradient(90deg, #a7b9c8 50%, #0094ce 50%);
 	background-size: 170%;
 	transition: .3s ease-out;
 }
@@ -31,7 +31,7 @@ html, body{
 	/*in main there will be the container with content*/
 	margin-left: 80px; /* Same as the width of the sidenav */
 	height:100%;
-	background:#fafafa;
+	background:#FFFFFF;
 }
 
 /*here will be the content that will appear*/
