@@ -28,8 +28,12 @@
 			var y3Values = [1, 8, 6, 12, 9, 9];
 			var y4Values = [6, 8, 3, 1, 3, 7];
 			
-			var colors = [ '#2685CB', '#4AD95A', '#FEC81B', '#FD8D14', '#CE00E6', '#4B4AD3'];
-			
+			var tempGaugeColors = [ '#032580', '#0582CA', '#F85E00', '#E81717'];
+			var gaugeColors = [ '#5F9324', '#FFB30F', '#F85E00', '#E81717'];
+			var colors = [ '#fa4dc8', '#7E34D1', '#0582CA', '#490F60', '#5F9324', '#FFB30F', '#F85E00', '#E81717'];
+			var dustColor = ['#5F9324', '#5F932480'];
+			var rainColor = ['#E81717', '#E8171780'];
+			var airQColor = ['#F85E00', '#F85E0080'];
 			//Gauge Variables
 			var curValue = 2;
 			var curMinValue = 0;
@@ -37,13 +41,13 @@
 
 			//Gauge Functions
 			var chartName = document.getElementById('temp').getContext('2d');//Temperature
-			gFunction(chartName, curValue, curMinValue, curLim, "Temperature");
+			gFunction(chartName, curValue, curMinValue, curLim, "Temperature", tempGaugeColors);
 
 			var chartName = document.getElementById('hum').getContext('2d');//Humidity
-			gFunction(chartName, curValue, curMinValue, curLim, "Humidity");
+			gFunction(chartName, curValue, curMinValue, curLim, "Humidity", gaugeColors);
 			
 			var chartName = document.getElementById('bar').getContext('2d');//Barometric pressure
-			gFunction(chartName, curValue, curMinValue, curLim, "Barometric pressure");
+			gFunction(chartName, curValue, curMinValue, curLim, "Barometric pressure", gaugeColors);
 			
 			//Creation of Dynamic Array
 			var datasetdata0 = [];
@@ -63,10 +67,10 @@
 			
 			//Line Functions
 			var chartName = document.getElementById('dust');//Dust
-			cFunction(chartName, xRainValues, yRainValues, "Dust");
+			cFunction(chartName, xRainValues, yRainValues, "Dust", dustColor);
 
 			var chartName = document.getElementById('rain');//Rain
-			cFunction(chartName, xRainValues, yRainValues, "Rain");
+			cFunction(chartName, xRainValues, yRainValues, "Rain", rainColor);
 
 			var chartName = document.getElementById('mq2');//MQ2
 			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray,datasetdata1),"MQ2");
@@ -81,7 +85,7 @@
 			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray2,datasetdata4),"MQ135");
 
 			var chartName = document.getElementById('aq');//Air Quality
-			cFunction(chartName, xRainValues, yRainValues, "Air Quality");
+			cFunction(chartName, xRainValues, yRainValues, "Air Quality", airQColor);
 			
 			function fillDataset(dataarray, datasetdata){
 				for (var i=0; i<dataarray.length; i++) {
@@ -95,7 +99,7 @@
 				}
 				return datasetdata;
 			}
-			function cFunction(chartName, xValues, yValues, chartText) {
+			function cFunction(chartName, xValues, yValues, chartText, color) {
 				var chart = new Chart(chartName, {
 					type: "line",
 					data: {
@@ -103,8 +107,8 @@
 						datasets: [{
 							fill: false,
 							lineTension: 0,
-							backgroundColor: "rgba(0,0,255,1.0)",
-							borderColor: "rgba(0,0,255,0.1)",
+							backgroundColor:color[0],
+							borderColor: color[1],
 							data: yValues
 						}]
 					},
@@ -118,47 +122,7 @@
 				});
 				chart.render();
 			}
-			
-			/*function mulLineFunction(chartName,xValues,y1Values,y2Values,y3Values,chartText) {
-				var chart = new Chart(chartName, {
-					type: "line",
-					data: {
-						labels: xValues,
-						datasets: [
-							{
-							  label: 'Temperature',
-							  data:y1Values ,
-							  fill: false,
-							  borderColor: "rgba(0,0,255,0.1)",
-							  backgroundColor: "rgba(0,0,255,1.0)",
-							},
-							{
-							  label: 'Humidity',
-							  data:y2Values,
-							  fill: false,
-							  borderColor: "rgba(0,255,0,0.1)",
-							  backgroundColor: "rgba(0,255,0,1.0)",
-							},
-							{
-							  label: 'Barometric',
-							  data:y3Values ,
-							  fill: false,
-							  borderColor: "rgba(255,0,0,0.1)",
-							  backgroundColor: "rgba(255,0,0,1.0)",
-							}
-						  ]
-					},
-					options: {
-						legend: { display: false },
-						title: {
-							display: true,
-							text: chartText
-						}
-					}
-				});
-				chart.render();
-			}*/
-			
+
 			function DynamicLineFunction(chartName,xValues,datasetdata,chartText) {
 				var chart = new Chart(chartName, {
 					type: "line",
@@ -168,7 +132,11 @@
 					},
 					options: {
 						legend: {
-							position: 'top',
+							position: 'top',//left when resize
+							labels: {
+								fontSize: 12,
+								boxWidth:1
+							}
 						  },
 						title: {
 							display: true,
@@ -179,14 +147,14 @@
 				chart.render();
 			}			
 		
-			function gFunction(chartName, curValue, curMinValue, curLim, chartText) {
+			function gFunction(chartName, curValue, curMinValue, curLim, chartText, colors) {
 				var chart = new Chart(chartName, {
 					type: "gauge",
 					data: {
 						datasets: [{
 							value: curValue,
 							minValue: curMinValue,
-							backgroundColor: ['green', 'yellow', 'orange', 'red'],
+							backgroundColor: colors,
 							data: curLim,
 						}]
 					},
@@ -206,7 +174,7 @@
 						  backgroundColor: 'rgba(0, 0, 0, 1)',
 						  borderRadius: 5,
 						  padding: {
-							top: 10,
+							top: 1,
 							bottom: 10
 						  }
 						},
@@ -223,6 +191,7 @@
 	<div class="sidenav">
 		<a href="map.html"><i class="bi bi-map-fill"></i></a>
 		<a href="data.html" class="current"><i class="bi bi-cloud-fill"></i></a>
+		<img src="AEOLUS_LOGO.png"  style="position: absolute; bottom: 0px;" class = "img-responsive" alt="logo"> 
 	</div>
 
 	<div class="main">
@@ -234,7 +203,11 @@
 						<div class="row">
 							<div class="col-sm-6"><canvas id="temp"></canvas></div>
 							<div class="col-sm-6"><canvas id="hum"></div>
-							<div class="col-sm-6"><canvas id="bar"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-3"></div>
+							<div class="col-sm-6"><canvas id="bar"></canvas></div>
+							<div class="col-sm-3"></div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12"><canvas id="bme"></canvas></div>
