@@ -1,22 +1,31 @@
 # Dummy Data Generator
 
 This is a temporary script used to test the interface without having any data from real sensors.
-The script is implemented with Python and it uses ``random``, ``numpy`` and ``pandas``.
+The script is implemented with Python and it uses `random`, `numpy` and `pandas`.
 
 ## How to run
 
-To run this script, it needs to have ``numpy`` and ``pandas``. To install them, run this command:
+To run this script, it needs to have `numpy` and `pandas`. To install them, run this command:
 
 ```bash
 pip3 install -r requirements.txt
 ```
 
-This read from the ``requirements.txt`` file the modules used for the script.
+This read from the `requirements.txt` file the modules used for the script.
 
-Then just run from the CLI:
+You will also need to have installed mysql or mariadb and create a `.env` file in the root of the dummy_data directory to write your credentials there. This should look liike this:
+
+```.env
+HOST=localhost
+USER=user
+PASSWORD=pass
+DATABASE=talos_db
+```
+
+Finally just run from the CLI and add the arguments. The first argument is the amount of minutes it will have to wait to produce the next data, while the second argument how many times it will repeat this process.
 
 ```bash
-python3 generator.py
+python3 generator.py <minutes> <repeats>
 ```
 
 ## Explanation
@@ -25,10 +34,10 @@ python3 generator.py
 
 The CSV file contains the values to be used from the script to generate the data that will be used. Each line represents a field and each comma represents a value from the key. The fields are:
 
-* **sensor**: which sensor is the data coming from
-* **start**: which is the minimum value the sensor can read to look realistic
-* **end**: which is the maximum value the sensor can read to look realistic
-* **step**: how much it changes overtime to look realistic
+- **sensor**: which sensor is the data coming from
+- **start**: which is the minimum value the sensor can read to look realistic
+- **end**: which is the maximum value the sensor can read to look realistic
+- **step**: how much it changes overtime to look realistic
 
 Pandas is used to read the CSV file and parse it to a numpy array so it will be available to use the data in Python.
 
@@ -46,7 +55,7 @@ A dictionary is made to keep the current values of each sensor in a format that 
 current_values = dict()
 ```
 
-Next, it reads the data from the dataset. If the fourth field is empty, that means that it stores only two values and it picks randomly between those two values. Otherwise, ``random.uniform`` is needed to pick a random real number in the range of the minimum and maximum that the sensor can read.
+Next, it reads the data from the dataset. If the fourth field is empty, that means that it stores only two values and it picks randomly between those two values. Otherwise, `random.uniform` is needed to pick a random real number in the range of the minimum and maximum that the sensor can read.
 
 ```py
 for entry in dataset.values:
@@ -58,11 +67,12 @@ for entry in dataset.values:
 
 ### Calculate next value
 
-Final step for the generator is to calculate the next value of each sensor every 3 seconds. The logic behind this is similar to the previous problem. As far as the sensors that read only two values, it still picks randomly between those two values. Otherwise, the third entry is used to find a random number to add to the current value. If the result is smaller than the minimum value then it picks the minimum value. Similarly, if the result is bigger than the maximum value then it picks the maximum value. In any other case, it keeps the result.
+Final step for the generator is to calculate the next value of each sensor every X minutes seconds. The logic behind this is similar to the previous problem. As far as the sensors that read only two values, it still picks randomly between those two values. Otherwise, the third entry is used to find a random number to add to the current value. If the result is smaller than the minimum value then it picks the minimum value. Similarly, if the result is bigger than the maximum value then it picks the maximum value. In any other case, it keeps the result.
 
 ```py
-while True:
+for i in range(NUM_OF_REPEATS):
   print(f"{GREEN}{current_values}{DEFAULT}")
+  db.insert_values(current_values)
   for entry in dataset.values:
     if entry[3] != 0:
       current_values[entry[0]] += uniform(-entry[3], entry[3])
@@ -73,5 +83,5 @@ while True:
     else:
       current_values[entry[0]] = randrange(0, 2, 1)
 
-  sleep(3)
+  sleep(SLEEP_INTERVAL * 60)
 ```

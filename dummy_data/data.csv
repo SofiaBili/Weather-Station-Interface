@@ -11,7 +11,7 @@ CO2,10,1000,25
 Tolueno,10,1000,25
 NH4,10,1000,30
 Acetone,10,1000,40
-Tempature,-40,85,30
+Temperature,-40,85,30
 Humidity,0,100,5
 Pressure,300,1100,100
 Dust Sensor,0,500,100
