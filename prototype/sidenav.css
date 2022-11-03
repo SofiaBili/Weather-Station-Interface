@@ -6,17 +6,17 @@ html, body{
 }
 .sidenav{
 	height: 100%;
-	width: 80px;
+	width: 8%;
 	position: fixed;
 	top: 0;
-	background-color: #010142;
+	background-color: #011627;
 	padding-top: 3px;
 }
 
 .sidenav a {
 	padding: 6px 6px 6px 28px;
 	margin-bottom:4px; /*add margin between links*/
-	font-size: 25px;
+	font-size: 20px;
 	color: #437F97;
 	display: block; /*displays the links in a block(full width of sidenav)*/
 	background-position: right; /*must exist for the animation on hover*/
@@ -43,5 +43,6 @@ html, body{
 }
 
 h2{
-	color: #437F97;
+	color: #011627;
+	text-align: center;
 }

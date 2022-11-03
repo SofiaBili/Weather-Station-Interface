@@ -32,8 +32,8 @@
 			var gaugeColors = [ '#5F9324', '#FFB30F', '#F85E00', '#E81717'];
 			var colors = [ '#fa4dc8', '#7E34D1', '#0582CA', '#490F60', '#5F9324', '#FFB30F', '#F85E00', '#E81717'];
 			var dustColor = ['#5F9324', '#5F932480'];
-			var rainColor = ['#E81717', '#E8171780'];
-			var airQColor = ['#F85E00', '#F85E0080'];
+			var rainColor = ['#437F97', '#437F9780'];
+			var airQColor = ['#FFB30F', '#FFB30F80'];
 			//Gauge Variables
 			var curValue = 2;
 			var curMinValue = 0;
@@ -105,10 +105,10 @@
 					data: {
 						labels: xValues,
 						datasets: [{
-							fill: false,
+							fill: true,
 							lineTension: 0,
-							backgroundColor:color[0],
-							borderColor: color[1],
+							backgroundColor:color[1],
+							borderColor: color[0],
 							data: yValues
 						}]
 					},
@@ -116,7 +116,7 @@
 						legend: { display: false },
 						title: {
 							display: true,
-							text: chartText
+							text: chartText, 
 						}
 					}
 				});
@@ -132,7 +132,7 @@
 					},
 					options: {
 						legend: {
-							position: 'top',//left when resize
+							position: 'left',//left when resize
 							labels: {
 								fontSize: 12,
 								boxWidth:1
@@ -140,7 +140,7 @@
 						  },
 						title: {
 							display: true,
-							text: chartText
+							text: chartText,							
 						}
 					}
 				});
@@ -163,16 +163,17 @@
 						  radiusPercentage: 12,
 						  widthPercentage: 3.0,
 						  lengthPercentage: 80,
-						  color: 'rgba(0, 0, 0, 1)'
+						  color: '#011627'
 						},
 						valueLabel: {
 						  display: true,
 						  formatter: (value) => {
 							return Math.round(value);
 						  },
+						  fontSize: 12,
 						  color: 'rgba(255, 255, 255, 1)',
-						  backgroundColor: 'rgba(0, 0, 0, 1)',
-						  borderRadius: 5,
+						  backgroundColor: '#011627',
+						  borderRadius: 10,
 						  padding: {
 							top: 1,
 							bottom: 10
@@ -189,9 +190,10 @@
 	}
 	</script>
 	<div class="sidenav">
-		<a href="map.html"><i class="bi bi-map-fill"></i></a>
-		<a href="data.html" class="current"><i class="bi bi-cloud-fill"></i></a>
-		<img src="AEOLUS_LOGO.png"  style="position: absolute; bottom: 0px;" class = "img-responsive" alt="logo"> 
+		<img src="AEOLUS_LOGO.png"  style="position: relative; top: 0px;" class = "img-responsive" alt="logo"> 
+		<a href="map.html"><i class="bi bi-map-fill"></i> Map</a>
+		<a href="data.html" class="current"><i class="bi bi-cloud-fill"></i> Data</a>
+		<img src="D:\old_down\logo_pada.png"  style="position: absolute; bottom: 0px;" class = "img-responsive" alt="logo"> 
 	</div>
 
 	<div class="main">
@@ -201,22 +203,16 @@
 					<div class="col-sm-6" style="background-color:white;">
 						<h2>Weather Sensors</h2>
 						<div class="row">
-							<div class="col-sm-6"><canvas id="temp"></canvas></div>
-							<div class="col-sm-6"><canvas id="hum"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3"></div>
-							<div class="col-sm-6"><canvas id="bar"></canvas></div>
-							<div class="col-sm-3"></div>
-						</div>
-						<div class="row">
 							<div class="col-sm-12"><canvas id="bme"></canvas></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12"><canvas id="dust"></canvas></div>
+							<div class="col-sm-4"><canvas id="temp"></canvas></div>
+							<div class="col-sm-4"><canvas id="hum"></canvas></div>
+							<div class="col-sm-4"><canvas id="bar"></canvas></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12"><canvas id="rain"></canvas></div>
+							<div class="col-sm-6"><canvas id="dust"></canvas></div>
+							<div class="col-sm-6"><canvas id="rain"></canvas></div>
 						</div>
 						<!--<div class="row">
 							<div class="col-sm-6"><canvas id="dust"></canvas></div>
@@ -226,16 +222,18 @@
 					<div class="col-sm-6" style="background-color:white;">
 						<h2>Air Quality Sensors</h2>
 						<div class="row">
-							<div class="col-sm-12"><canvas id="mq2"></canvas></div>
+							<div class="col-sm-6"><canvas id="mq2"></canvas></div>
+							<div class="col-sm-6"><canvas id="mq3"></canvas></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12"><canvas id="mq3"></canvas></div>
+							
 						</div>
 						<div class="row">
-							<div class="col-sm-12"><canvas id="mq4"></canvas></div>
+							<div class="col-sm-6"><canvas id="mq4"></canvas></div>
+							<div class="col-sm-6"><canvas id="mq135"></canvas></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12"><canvas id="mq135"></canvas></div>
+							
 						</div>
 						<!--
 							<div class="row">
