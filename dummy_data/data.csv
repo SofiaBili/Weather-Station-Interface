@@ -1,6 +1,7 @@
 sensor,start,end,step
 H2,200,10000,30
 LGP,200,10000,30
+Propane,200,10000,30
 Hexane,0.05,10,0.5
 Benzine,0.05,10,0.5
 Alcohol,0.05,10,0.5
