@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="https://unpkg.com/chart.js@2.8.0/dist/Chart.bundle.js"></script>
+  <script src="https://unpkg.com/chartjs-gauge@0.3.0/dist/chartjs-gauge.js"></script>
 <head>
 	<title>Weather Station</title>
 	<meta charset="utf-8">
@@ -21,41 +22,93 @@
 			var yAllValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
 			var xRainValues = [1, 2, 7, 8, 9, 10];
 			var yRainValues = [7, 8, 8, 9, 9, 9];
+			
+			var y1Values = [7, 8, 8, 9, 9, 9];
+			var y2Values = [7, 4, 8, 2, 9, 7];
+			var y3Values = [1, 8, 6, 12, 9, 9];
+			var y4Values = [6, 8, 3, 1, 3, 7];
+			
+			var tempGaugeColors = [ '#032580', '#0582CA', '#F85E00', '#E81717'];
+			var gaugeColors = [ '#5F9324', '#FFB30F', '#F85E00', '#E81717'];
+			var colors = [ '#fa4dc8', '#7E34D1', '#0582CA', '#490F60', '#5F9324', '#FFB30F', '#F85E00', '#E81717'];
+			var dustColor = ['#5F9324', '#5F932480'];
+			var rainColor = ['#437F97', '#437F9780'];
+			var airQColor = ['#FFB30F', '#FFB30F80'];
+			//Gauge Variables
+			var curValue = 2;
+			var curMinValue = 0;
+			var curLim = [1,2,3,4];
 
-			var chartName = document.getElementById('thb');//Temperature, humidity and  barometric pressure
-			cFunction(chartName, xAllValues, yAllValues, "Temperature, humidity and  barometric pressure");
+			//Gauge Functions
+			var chartName = document.getElementById('temp').getContext('2d');//Temperature
+			gFunction(chartName, curValue, curMinValue, curLim, "Temperature", tempGaugeColors);
 
+			var chartName = document.getElementById('hum').getContext('2d');//Humidity
+			gFunction(chartName, curValue, curMinValue, curLim, "Humidity", gaugeColors);
+			
+			var chartName = document.getElementById('bar').getContext('2d');//Barometric pressure
+			gFunction(chartName, curValue, curMinValue, curLim, "Barometric pressure", gaugeColors);
+			
+			//Creation of Dynamic Array
+			var datasetdata0 = [];
+			var datasetdata1 = [];
+			var datasetdata2 = [];
+			var datasetdata3 = [];
+			var datasetdata4 = [];
+			var dataarray = [y1Values,y2Values,y3Values];
+			var dataarray2 = [y1Values,y2Values,y3Values, y4Values];
+			
+
+			var chartName = document.getElementById('bme');//BME280
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray,datasetdata0),"Temperature,Humidity and Barometric pressure");
+			
+			//var chartName = document.getElementById('bme');//BME280
+			//mulLineFunction(chartName,xRainValues,y1Values,y2Values,y3Values,"Temperature,Humidity and Barometric pressure");
+			
+			//Line Functions
 			var chartName = document.getElementById('dust');//Dust
-			cFunction(chartName, xRainValues, yRainValues, "Dust");
+			cFunction(chartName, xRainValues, yRainValues, "Dust", dustColor);
 
 			var chartName = document.getElementById('rain');//Rain
-			cFunction(chartName, xRainValues, yRainValues, "Rain");
+			cFunction(chartName, xRainValues, yRainValues, "Rain", rainColor);
 
 			var chartName = document.getElementById('mq2');//MQ2
-			cFunction(chartName, xRainValues, yRainValues, "MQ2");
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray,datasetdata1),"MQ2");
 
 			var chartName = document.getElementById('mq3');//MQ3
-			cFunction(chartName, xRainValues, yRainValues, "MQ3");
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray,datasetdata2),"MQ3");
 
 			var chartName = document.getElementById('mq4');//MQ4
-			cFunction(chartName, xRainValues, yRainValues, "MQ4");
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray,datasetdata3),"MQ4");
 
 			var chartName = document.getElementById('mq135');//MQ135
-			cFunction(chartName, xRainValues, yRainValues, "MQ135");
+			DynamicLineFunction(chartName,xRainValues,fillDataset(dataarray2,datasetdata4),"MQ135");
 
 			var chartName = document.getElementById('aq');//Air Quality
-			cFunction(chartName, xRainValues, yRainValues, "Air Quality");
-
-			function cFunction(chartName, xValues, yValues, chartText) {
+			cFunction(chartName, xRainValues, yRainValues, "Air Quality", airQColor);
+			
+			function fillDataset(dataarray, datasetdata){
+				for (var i=0; i<dataarray.length; i++) {
+					datasetdata[i] = {
+						label:"Test " + i,
+						data: dataarray[i],
+						fill: false,
+						backgroundColor: colors[i],
+						borderColor: colors[i],
+					}
+				}
+				return datasetdata;
+			}
+			function cFunction(chartName, xValues, yValues, chartText, color) {
 				var chart = new Chart(chartName, {
 					type: "line",
 					data: {
 						labels: xValues,
 						datasets: [{
-							fill: false,
+							fill: true,
 							lineTension: 0,
-							backgroundColor: "rgba(0,0,255,1.0)",
-							borderColor: "rgba(0,0,255,0.1)",
+							backgroundColor:color[1],
+							borderColor: color[0],
 							data: yValues
 						}]
 					},
@@ -63,17 +116,84 @@
 						legend: { display: false },
 						title: {
 							display: true,
-							text: chartText
+							text: chartText, 
 						}
 					}
 				});
 				chart.render();
 			}
+
+			function DynamicLineFunction(chartName,xValues,datasetdata,chartText) {
+				var chart = new Chart(chartName, {
+					type: "line",
+					data: {
+						labels: xValues,
+						datasets: datasetdata
+					},
+					options: {
+						legend: {
+							position: 'left',//left when resize
+							labels: {
+								fontSize: 12,
+								boxWidth:1
+							}
+						  },
+						title: {
+							display: true,
+							text: chartText,							
+						}
+					}
+				});
+				chart.render();
+			}			
+		
+			function gFunction(chartName, curValue, curMinValue, curLim, chartText, colors) {
+				var chart = new Chart(chartName, {
+					type: "gauge",
+					data: {
+						datasets: [{
+							value: curValue,
+							minValue: curMinValue,
+							backgroundColor: colors,
+							data: curLim,
+						}]
+					},
+					options: {
+						needle: {
+						  radiusPercentage: 12,
+						  widthPercentage: 3.0,
+						  lengthPercentage: 80,
+						  color: '#011627'
+						},
+						valueLabel: {
+						  display: true,
+						  formatter: (value) => {
+							return Math.round(value);
+						  },
+						  fontSize: 12,
+						  color: 'rgba(255, 255, 255, 1)',
+						  backgroundColor: '#011627',
+						  borderRadius: 10,
+						  padding: {
+							top: 1,
+							bottom: 10
+						  }
+						},
+						title: {
+							display: true,
+							text: chartText
+						}
+					  }
+				});
+				chart.render();
 		}
+	}
 	</script>
 	<div class="sidenav">
-		<a href="map.html"><i class="bi bi-map-fill"></i></a>
-		<a href="data.html" class="current"><i class="bi bi-cloud-fill"></i></a>
+		<img src="AEOLUS_LOGO.png"  style="position: relative; top: 0px;" class = "img-responsive" alt="logo"> 
+		<a href="map.html"><i class="bi bi-map-fill"></i> Map</a>
+		<a href="data.html" class="current"><i class="bi bi-cloud-fill"></i> Data</a>
+		<img src="logo_pada.png"  style="position: absolute; bottom: 0px;" class = "img-responsive" alt="logo"> 
 	</div>
 
 	<div class="main">
@@ -83,17 +203,21 @@
 					<div class="col-sm-6" style="background-color:white;">
 						<h2>Weather Sensors</h2>
 						<div class="row">
-							<div class="col-sm-6" style="background-color:lightcyan;">humidity</div>
-							<div class="col-sm-6" style="background-color:lightgray;">temperature</div>
-							<div class="col-sm-6" style="background-color:lightgray;">barometric pressure</div>
+							<div class="col-sm-12"><canvas id="bme"></canvas></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12"><canvas id="thb"></canvas></div>
+							<div class="col-sm-4"><canvas id="temp"></canvas></div>
+							<div class="col-sm-4"><canvas id="hum"></canvas></div>
+							<div class="col-sm-4"><canvas id="bar"></canvas></div>
 						</div>
 						<div class="row">
 							<div class="col-sm-6"><canvas id="dust"></canvas></div>
 							<div class="col-sm-6"><canvas id="rain"></canvas></div>
 						</div>
+						<!--<div class="row">
+							<div class="col-sm-6"><canvas id="dust"></canvas></div>
+							<div class="col-sm-6"><canvas id="rain"></canvas></div>
+						</div>-->
 					</div>
 					<div class="col-sm-6" style="background-color:white;">
 						<h2>Air Quality Sensors</h2>
@@ -102,10 +226,25 @@
 							<div class="col-sm-6"><canvas id="mq3"></canvas></div>
 						</div>
 						<div class="row">
+							
+						</div>
+						<div class="row">
 							<div class="col-sm-6"><canvas id="mq4"></canvas></div>
 							<div class="col-sm-6"><canvas id="mq135"></canvas></div>
 						</div>
-
+						<div class="row">
+							
+						</div>
+						<!--
+							<div class="row">
+							<div class="col-sm-6"><canvas id="mq2"></canvas></div>
+							<div class="col-sm-6"><canvas id="mq3"></canvas></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6"><canvas id="mq4"></canvas></div>
+							<div class="col-sm-6"><canvas id="mq135"></canvas></div>
+						</div>
+					-->
 						<div class="row">
 							<div class="col-sm-12"><canvas id="aq"></canvas></div>
 						</div>
