@@ -1,3 +1,4 @@
+
 .modal-btn {
     margin: auto;
     width: 50%;
@@ -27,6 +28,7 @@
     border: 1px solid #888;
     width: 80%; 
     height: 50%;;
+    z-index: 1;
   }
   
   /* The Close Button */
@@ -35,6 +37,7 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
+    z-index: 1;
   }
   
   .close:hover,
