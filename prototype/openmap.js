@@ -1,7 +1,7 @@
 let mapOptions = {
 
     center: [38.00303, 23.67605],
-    zoom: 17,
+    zoom: 20,
 }
 
 let map = new L.map('map', mapOptions);
