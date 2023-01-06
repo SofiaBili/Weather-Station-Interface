@@ -38,74 +38,62 @@ marker4.addTo(map);
 function showmodal(markerName) {
   console.log(markerName);
   
-  var xRainValues;
-  var yRainValues;
-  
-  var y1Values;
-  var y2Values;
-  var y3Values;
-  var y4Values;
-    
-  //Gauge Variables
-  var curValue;
-  var curMinValue;
-  var curLim;
   if(markerName=="marker1"){
     console.log("hi");
-     xRainValues = [1, 2, 7, 8, 9, 10];
-     yRainValues = [7, 8, 8, 9, 9, 9];
+    var xRainValues = [1, 2, 7, 8, 9, 10];
+    var yRainValues = [7, 8, 8, 9, 9, 9];
     
-     y1Values = [7, 8, 8, 9, 9, 9];
-     y2Values = [7, 4, 8, 2, 9, 7];
-     y3Values = [1, 8, 6, 12, 9, 9];
-     y4Values = [6, 8, 3, 1, 3, 7];
+    var y1Values = [7, 8, 8, 9, 9, 9];
+    var y2Values = [7, 4, 8, 2, 9, 7];
+    var y3Values = [1, 8, 6, 12, 9, 9];
+    var y4Values = [6, 8, 3, 1, 3, 7];
       
     //Gauge Variables
-     curValue = 1;
-     curMinValue = 0;
-     curLim = [1,2,3,4];
+    var curValue = 1;
+    var curMinValue = 0;
+    var curLim = [1,2,3,4];
   }else if(markerName=="marker2"){
     console.log("hi2");
-     xRainValues = [7, 2, 2, 28, 2, 2];
-     yRainValues = [17, 18, 1, 1, 4, 4];
+    var xRainValues = [7, 2, 2, 28, 2, 2];
+    var yRainValues = [17, 18, 1, 1, 4, 4];
   
-     y1Values = [1, 1, 1, 9, 9, 9];
-     y2Values = [1, 1, 1, 2, 9, 7];
-     y3Values = [1, 1, 1, 12, 9, 9];
-     y4Values = [1, 1, 1, 1, 3, 7];
+    var y1Values = [1, 1, 1, 9, 9, 9];
+    var y2Values = [1, 1, 1, 2, 9, 7];
+    var y3Values = [1, 1, 1, 12, 9, 9];
+    var y4Values = [1, 1, 1, 1, 3, 7];
       
     //Gauge Variables
-     curValue = 2;
-     curMinValue = 0;
-     curLim = [1,2,3,4];
+    var curValue = 2;
+    var curMinValue = 0;
+    var curLim = [1,2,3,4];
   }else if(markerName=="marker3"){
     console.log("hi3");
-    xRainValues = [3, 2, 3, 3, 3, 27];
-    yRainValues = [2, 3, 3, 3, 3, 3];
+    var xRainValues = [3, 2, 3, 3, 3, 27];
+    var yRainValues = [2, 3, 3, 3, 3, 3];
   
-    y1Values = [3, 8, 8, 9, 3, 3];
-    y2Values = [7, 24, 9, 3, 9, 3];
-    y3Values = [1, 8, 6, 3, 3, 9];
-    y4Values = [6, 8, 3, 3, 3, 7];
+    var y1Values = [3, 8, 8, 9, 3, 3];
+    var y2Values = [7, 24, 9, 3, 9, 3];
+    var y3Values = [1, 8, 6, 3, 3, 9];
+    var y4Values = [6, 8, 3, 3, 3, 7];
       
     //Gauge Variables
-    curValue = 3;
-    curMinValue = 0;
-    curLim = [1,2,3,4];
+    var curValue = 3;
+    var curMinValue = 0;
+    var curLim = [1,2,3,4];
   }else if(markerName=="marker4"){
     console.log("hi4");
-    xRainValues = [4, 4, 4, 4, 4, 4];
-    yRainValues = [4, 4, 4, 4, 9, 9];
+    var xRainValues = [4, 4, 4, 4, 4, 4];
+    var yRainValues = [4, 4, 4, 4, 9, 9];
   
-    y1Values = [-7, 8, 8, 9, 9, 9];
-    y2Values = [7, 4, 8, 2, 9, 7];
-    y3Values = [1, 8, 6, 12, 9, 9];
-    y4Values = [6, 8, 3, 1, 3, 7];
+    var y1Values = [-7, 8, 8, 9, 9, 9];
+    var y2Values = [7, 4, 8, 2, 9, 7];
+    var y3Values = [1, 8, 6, 12, 9, 9];
+    var y4Values = [6, 8, 3, 1, 3, 7];
     
     //Gauge Variables
-    curValue = 4;
-    curMinValue = 0;
-    curLim = [1,2,3,4];
+    var curValue = 4;
+    var curMinValue = 0;
+    var curLim = [1,2,3,4];
   }
   
   var tempGaugeColors = [ '#032580', '#0582CA', '#F85E00', '#E81717'];
@@ -256,7 +244,7 @@ function showmodal(markerName) {
           display: true,
           text: chartText
         }
-        }
+      }
     });
     chart.render();
   }
