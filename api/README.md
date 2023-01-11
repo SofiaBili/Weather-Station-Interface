@@ -25,7 +25,7 @@ go get .
 
 Once everything is ready, then run `go run .` to launch the API.
 
-Hit the endpoints with: `localhost:8080`.
+Hit the endpoints with: `localhost:3000`.
 
 ### Windows
 
