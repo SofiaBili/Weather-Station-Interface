@@ -12,3 +12,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.content-area {
+  margin-left: 5%;
+  background: white;
+  width: 87%;
+  height: 70%;
+}
+</style>

@@ -3,53 +3,46 @@
     <div class="content-area">
       <div class="container-fluid">
         <h2>Weather Station on Campus</h2>
-        <GMapMap
-          :center="center"
-          :zoom="7"
-          map-type-id="terrain"
-          style="width: 100%; height: 500px"
-        >
-          <GMapCluster>
-            <GMapMarker
-              v-for="marker in markers"
-              :key="marker.id"
-              :position="marker.position"
-              :title="marker.title"
-              :icon="marker.icon"
-            >
-              <GMapInfoWindow>
-                <div>
-                  <h3>{{ marker.title }}</h3>
-                  <p>{{ marker.content }}</p>
-                  <b-button>Test</b-button>
-                </div>
-              </GMapInfoWindow>
-            </GMapMarker>
-          </GMapCluster>
-        </GMapMap>
+        <l-map style="height: 350px; z-index: 0" :zoom="zoom" :center="center">
+          <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+          <l-marker
+            v-for="(marker, index) in markers"
+            :key="index"
+            :lat-lng="marker"
+          ></l-marker>
+        </l-map>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import "leaflet/dist/leaflet.css";
+import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
+import { ref } from "vue";
+
 export default {
+  name: "Map",
+  components: {
+    LMap,
+    LTileLayer,
+    LMarker,
+  },
   setup() {
+    const zoom = ref(20);
+    const center = ref([47.31322, -1.319482]);
+    const url = ref("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+    const attribution = ref(
+      '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    );
+    const markers = ref([[38.002275, 23.67632]]);
+
     return {
-      center: {
-        lat: 40.7128,
-        lng: -74.006,
-      },
-      markers: [
-        {
-          position: {
-            lat: 40.7128,
-            lng: -74.006,
-          },
-          title: "New York",
-          content: "New York City",
-        },
-      ],
+      zoom,
+      center,
+      url,
+      attribution,
+      markers,
     };
   },
 };

@@ -34,7 +34,7 @@ ChartJS.register(
 );
 
 export default {
-  name: "Chart",
+  name: "LineChart",
   components: {
     Line,
   },
@@ -65,12 +65,12 @@ export default {
     },
     chartData: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     chartOptions: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
 };
 </script>
