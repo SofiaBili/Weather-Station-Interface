@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+	<script src="https://unpkg.com/chart.js@2.8.0/dist/Chart.bundle.js"></script>
+	<script src="https://unpkg.com/chartjs-gauge@0.3.0/dist/chartjs-gauge.js"></script>
 	<head>	
 		<title>Weather Station</title>  
 		<meta charset="utf-8">
@@ -17,42 +20,70 @@
 		
 	</head>
 	<body>
-
-			<!-- The Modal -->
-			<div id="myModal" class="modal">
-
-				<!-- Modal content -->
-				<div class="modal-content">
-					<span class="close">&times;</span>
-				<p><b>Αυτές είναι μερικές πληροφορίες από τους αισθητήρες...</b></p>
-				<div id="img">
-					<img src="https://www.shareicon.net/data/256x256/2016/11/15/852835_measure_512x512.png">
-				</div>
-			
-				
-			</div></div>
-				<!-- End Modal -->
-		
-			<!-- side bar start-->
-			</div>
-				<div class="sidenav">
-          <img src="AEOLUS_LOGO.png"  style="position: relative; top: 0px;" class = "img-responsive" alt="logo"> 
-          <a href="map.html" class="current"><i class="bi bi-map-fill"></i> Map</a>
-          <a href="data.html"><i class="bi bi-cloud-fill"></i> Data</a>
-          <img src="logo_pada.png"  style="position: absolute; bottom: 0px;" class = "img-responsive" alt="logo"> 
-        </div>
-			<!-- side bar ends-->
-
-				<div class="main">
-					<div class="content-area">
-								<div id="map">
-								</div> 
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="container-fluid">
+					<div class="row">
+						<span class="close">&times;</span>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<h2>Weather Sensors</h2>
+							<div class="row">
+								<div class="col-sm-12"><canvas id="bme"></canvas></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4"><canvas id="temp"></canvas></div>
+								<div class="col-sm-4"><canvas id="hum"></canvas></div>
+								<div class="col-sm-4"><canvas id="bar"></canvas></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6"><canvas id="dust"></canvas></div>
+								<div class="col-sm-6"><canvas id="rain"></canvas></div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<h2>Air Quality Sensors</h2>
+							<div class="row">
+								<div class="col-sm-6"><canvas id="mq2"></canvas></div>
+								<div class="col-sm-6"><canvas id="mq3"></canvas></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6"><canvas id="mq4"></canvas></div>
+								<div class="col-sm-6"><canvas id="mq135"></canvas></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12"><canvas id="aq"></canvas></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
 					</div>
 				</div>
+			</div>
+		</div>
+		<!-- End Modal -->
+		
+		<!-- side bar start-->
+		</div>
+		<div class="sidenav">
+			<img src="AEOLUS_LOGO.png"  style="position: relative; top: 0px;" class = "img-responsive" alt="logo"> 
+			<a href="map.html" class="current"><i class="bi bi-map-fill"></i> Map</a>
+			<a href="data.html"><i class="bi bi-cloud-fill"></i> Data</a>
+			<img src="logo_pada.png"  style="position: absolute; bottom: 0px;" class = "img-responsive" alt="logo"> 
+        </div>
+		<!-- side bar ends-->
+		<div class="main">
+			<div class="content-area">
+				<div id="map"></div> 
+			</div>
+		</div>
 			
-			<script src="modal.js"></script>
-			<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
-			<script src="openmap.js"></script>
+		<script src="modal.js"></script>
+		<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+		<script src="openmap.js"></script>
 	</body>
 </html>
 
