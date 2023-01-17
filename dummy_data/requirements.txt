@@ -1,4 +1,0 @@
-numpy
-pandas
-mysql-connector-python
-python-dotenv
