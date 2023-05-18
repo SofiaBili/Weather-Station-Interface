@@ -24,9 +24,8 @@
   .modal-content {
     background-color: #fefefe;
     margin: 2% auto; /* 15% from the top and centered */
-    padding: 20px;
     border: 0px solid #888;
-    width: 85%; 
+    width: 75%; 
     height: auto;
     z-index: 1;
   }
@@ -51,6 +50,7 @@
   { 
     overflow:hidden; 
   }
+
   #img img {
     max-width: 100%;
     max-height: 100%;

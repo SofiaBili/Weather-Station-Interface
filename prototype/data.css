@@ -1,0 +1,19 @@
+
+.main {
+	/*in main there will be the container with content*/
+	margin-left: 80px; /* Same as the width of the sidenav */
+	height:100%;
+	background:#FFFFFF;
+}
+
+/*here will be the content that will appear*/
+.content-area {
+	margin-left: 5%;
+	background:white;
+	width:93%;
+}
+
+h2{
+	color: #011627;
+	text-align: center;
+}
